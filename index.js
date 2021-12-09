@@ -19,7 +19,7 @@ app.get('/talker', talkerMiddleware);
 
 app.get('/talker/:id', talkerIdMiddleware);
 
-app.post('/', checkEmail, checkPassword, loginMiddleware);
+app.post('/login', checkEmail, checkPassword, loginMiddleware);
 
 app.listen(PORT, () => {
   console.log('Online');
