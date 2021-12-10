@@ -49,7 +49,7 @@ const checkPassword = (req, res, next) => {
   next();
 };
 
-const loginMiddleware = (req, res) => res.status(HTTP_OK_STATUS).json(
+const returnToken = (req, res) => res.status(HTTP_OK_STATUS).json(
     {
       token: token(),
     },
@@ -58,5 +58,5 @@ const loginMiddleware = (req, res) => res.status(HTTP_OK_STATUS).json(
 module.exports = {
   checkEmail,
   checkPassword,
-  loginMiddleware,
+  returnToken,
 };
