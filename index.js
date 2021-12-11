@@ -5,6 +5,7 @@ const talkerMiddleware = require('./middlewares/talkerMiddleware');
 const talkerIdMiddleware = require('./middlewares/talkerIdMiddleware');
 const editTalkerMiddleware = require('./middlewares/editTalkerMiddleware');
 const deleteTalkerMiddleware = require('./middlewares/deleteTalkerMiddleware');
+const searchTalkerMiddleware = require('./middlewares/searchTalkerMiddleware');
 const { checkEmail, checkPassword, returnToken } = require('./middlewares/loginMiddleware');
 const { 
   checkToken,
@@ -28,6 +29,8 @@ app.get('/', (_request, response) => {
 });
 
 app.get('/talker', talkerMiddleware);
+
+app.get('/talker/search', checkToken, searchTalkerMiddleware);
 
 app.get('/talker/:id', talkerIdMiddleware);
 
