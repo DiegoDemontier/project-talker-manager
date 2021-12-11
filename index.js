@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 const talkerMiddleware = require('./middlewares/talkerMiddleware');
 const talkerIdMiddleware = require('./middlewares/talkerIdMiddleware');
+const editTalkerMiddleware = require('./middlewares/editTalkerMiddleware');
 const { checkEmail, checkPassword, returnToken } = require('./middlewares/loginMiddleware');
 const { 
   checkToken,
@@ -39,6 +40,15 @@ app.post('/talker',
   checkDate,
   checkRate,
   addTalk);
+
+app.put('/talker/:id',
+  checkToken,
+  checkName,
+  checkAge,
+  checkTalk,
+  checkDate,
+  checkRate,
+  editTalkerMiddleware);
 
 app.listen(PORT, () => {
   console.log('Online');
