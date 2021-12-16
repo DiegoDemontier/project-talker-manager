@@ -1,21 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const talkerMiddleware = require('./middlewares/talkerMiddleware');
-const talkerIdMiddleware = require('./middlewares/talkerIdMiddleware');
-const editTalkerMiddleware = require('./middlewares/editTalkerMiddleware');
-const deleteTalkerMiddleware = require('./middlewares/deleteTalkerMiddleware');
-const searchTalkerMiddleware = require('./middlewares/searchTalkerMiddleware');
 const { checkEmail, checkPassword, returnToken } = require('./middlewares/loginMiddleware');
-const { 
-  checkToken,
-  checkName,
-  checkAge,
-  checkTalk,
-  checkDate,
-  checkRate,
-  addTalk,
- } = require('./middlewares/createTalkerMiddleware');
+const talkerRouter = require('./talkerRouter');
 
 const app = express();
 app.use(bodyParser.json());
@@ -28,33 +15,9 @@ app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
 });
 
-app.get('/talker', talkerMiddleware);
-
-app.get('/talker/search', checkToken, searchTalkerMiddleware);
-
-app.get('/talker/:id', talkerIdMiddleware);
+app.use('/talker', talkerRouter);
 
 app.post('/login', checkEmail, checkPassword, returnToken);
-
-app.post('/talker',
-  checkToken,
-  checkName,
-  checkAge,
-  checkTalk,
-  checkDate,
-  checkRate,
-  addTalk);
-
-app.put('/talker/:id',
-  checkToken,
-  checkName,
-  checkAge,
-  checkTalk,
-  checkDate,
-  checkRate,
-  editTalkerMiddleware);
-
-app.delete('/talker/:id', checkToken, deleteTalkerMiddleware);
 
 app.listen(PORT, () => {
   console.log('Online');
